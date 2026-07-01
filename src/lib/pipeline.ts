@@ -41,7 +41,7 @@ export async function generate(input: GenerateInput): Promise<GenerateResult> {
         break;
       }
       attempt++;
-    } catch (error) {
+    } catch {
       // transient failures such as Rate limit or JSON parse errors
       attempt++;
     }
@@ -54,7 +54,7 @@ export async function generate(input: GenerateInput): Promise<GenerateResult> {
   // Kick off the next stage and return.
   try {
     await input.advanceToNextStage();
-  } catch (error) {
+  } catch {
     return { status: "error", attempts: attempt };
   }
 
